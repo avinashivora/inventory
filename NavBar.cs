@@ -86,15 +86,14 @@ namespace inventory
 
         private void CheckoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Form parentForm = this.FindForm(); // Get the parent form of the user control
-            //if (parentForm != null)
-            //{
-            //    Redirect("AddCategory", parentForm, true);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Error: Unable to find parent form.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            Form checkout = new Checkout();
+            checkout.StartPosition = FormStartPosition.CenterScreen;
+            checkout.Location = this.Location;
+            checkout.FormClosing += (senderO, ev) =>
+            {
+                new Home().Show();
+            };
+            checkout.Show();
         }
 
         private void AddNewStockToolStripMenuItem_Click(object sender, EventArgs e)
