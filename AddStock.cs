@@ -57,7 +57,7 @@ namespace inventory
             string itemName = itemsDataGrid.Rows[e.RowIndex].Cells["item_name"].Value.ToString();
             int id = Convert.ToInt32(itemsDataGrid.Rows[e.RowIndex].Cells["id"].Value);
 
-            MessageBox.Show($"item name = {itemName}\nid = {id}");
+            //MessageBox.Show($"item name = {itemName}\nid = {id}");
             if (columnName == "newStock")
             {
                 QuantityInputDialog quantityDialog = new QuantityInputDialog(itemName);
