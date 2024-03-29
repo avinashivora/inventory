@@ -49,41 +49,54 @@ namespace inventory
         private void Home_Load(object sender, EventArgs e)
         {
             GetInventory();
+            itemsDataGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells; // Ensures rows auto-resize based on cell content
+
+            // Loop through each column and set WrapMode
+            foreach (DataGridViewColumn column in itemsDataGrid.Columns)
+            {
+                column.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            }
         }
 
         private void ItemsDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string columnName = itemsDataGrid.Columns[e.ColumnIndex].Name;
-            string itemName = itemsDataGrid.Rows[e.RowIndex].Cells["item_name"].Value.ToString();
-            int id = Convert.ToInt32(itemsDataGrid.Rows[e.RowIndex].Cells["id"].Value);
-            if (columnName == "update")
+            try
             {
-                UpdateItem(id);
-            }
-            else if (columnName == "del")
-            {
-                DialogResult result = MessageBox.Show($"Are you sure you want to delete {itemName} from Inventory? ", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes) DeleteItem(itemName);
-            }
-            else if (columnName == "barcode")
-            {
-                try
+                string columnName = itemsDataGrid.Columns[e.ColumnIndex].Name;
+                string itemName = itemsDataGrid.Rows[e.RowIndex].Cells["item_name"].Value.ToString();
+                int id = Convert.ToInt32(itemsDataGrid.Rows[e.RowIndex].Cells["id"].Value);
+                if (columnName == "update")
                 {
-                    object quantityValue = itemsDataGrid.Rows[e.RowIndex].Cells["quantity"].Value;
-                    if (quantityValue == null || quantityValue == DBNull.Value)
+                    UpdateItem(id);
+                }
+                else if (columnName == "del")
+                {
+                    DialogResult result = MessageBox.Show($"Are you sure you want to delete {itemName} from Inventory? ", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes) DeleteItem(itemName);
+                }
+                else if (columnName == "barcode")
+                {
+                    try
                     {
-                        AddItemWindow barcodeGenerate = new AddItemWindow();
-                        barcodeGenerate.BarcodeToDatabaseStorableValue(id, itemName);
+                        object quantityValue = itemsDataGrid.Rows[e.RowIndex].Cells["quantity"].Value;
+                        if (quantityValue == null || quantityValue == DBNull.Value)
+                        {
+                            AddItemWindow barcodeGenerate = new AddItemWindow();
+                            barcodeGenerate.BarcodeToDatabaseStorableValue(id, itemName);
+                        }
                     }
+                    catch
+                    {
+                        MessageBox.Show("Error generating the barcode before download");
+                    }
+
+                    DownloadBarcode(id);
+                    GetInventory();
                 }
-                catch
-                {
-                    MessageBox.Show("Error generating the barcode before download");
-                }
-                
-                DownloadBarcode(id);
-                GetInventory();
+                else { }
             }
+            catch { }
+            
         }
         private void UpdateItem(int id)
         {
@@ -93,6 +106,7 @@ namespace inventory
             uForm.FormClosing += (sender, e) =>
             {
                 new Home().Show();
+                this.Close();
             };
             uForm.Show();
             this.Hide();
@@ -100,7 +114,7 @@ namespace inventory
 
         private void DeleteItem(string itemName)
         {
-            string query = $"DELETE FROM item WHERE item_name = \'{itemName}\'";
+            string query = $"DELETE FROM barcode WHERE item_id = (SELECT item_id FROM item WHERE item_name = '{itemName}'); DELETE FROM item WHERE item_name = '{itemName}';";
             SqlConnection con;
             try
             {
@@ -110,7 +124,6 @@ namespace inventory
                 sqlCommand.ExecuteNonQuery();
                 MessageBox.Show($"{itemName} has been Deleted from Inventory", "Delete Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 con.Close();
-                this.Close();
             }
             catch (Exception ex)
             {

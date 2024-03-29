@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.itemsDataGrid = new System.Windows.Forms.DataGridView();
             this.navBar1 = new inventory.NavBar();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,9 +48,11 @@
             // 
             this.itemsDataGrid.AllowUserToAddRows = false;
             this.itemsDataGrid.AllowUserToDeleteRows = false;
+            this.itemsDataGrid.AllowUserToOrderColumns = true;
             this.itemsDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.itemsDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.itemsDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.itemsDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -62,6 +65,14 @@
             this.barcode,
             this.update,
             this.del});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.itemsDataGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.itemsDataGrid.Location = new System.Drawing.Point(5, 53);
             this.itemsDataGrid.Name = "itemsDataGrid";
             this.itemsDataGrid.ReadOnly = true;
@@ -82,79 +93,90 @@
             // 
             // id
             // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.id.DataPropertyName = "item_id";
             this.id.HeaderText = "id";
             this.id.MinimumWidth = 8;
             this.id.Name = "id";
             this.id.ReadOnly = true;
+            this.id.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.id.Visible = false;
-            this.id.Width = 150;
+            this.id.Width = 57;
             // 
             // item_name
             // 
+            this.item_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.item_name.DataPropertyName = "item_name";
             this.item_name.HeaderText = "Item";
             this.item_name.MinimumWidth = 8;
             this.item_name.Name = "item_name";
             this.item_name.ReadOnly = true;
-            this.item_name.Width = 150;
+            this.item_name.Width = 77;
             // 
             // desc
             // 
+            this.desc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.desc.DataPropertyName = "desc_item";
             this.desc.HeaderText = "Description";
             this.desc.MinimumWidth = 8;
             this.desc.Name = "desc";
             this.desc.ReadOnly = true;
-            this.desc.Width = 150;
+            this.desc.Width = 125;
             // 
             // company
             // 
+            this.company.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.company.DataPropertyName = "company_name";
             this.company.HeaderText = "Company Name";
             this.company.MinimumWidth = 8;
             this.company.Name = "company";
             this.company.ReadOnly = true;
-            this.company.Width = 150;
+            this.company.Width = 145;
             // 
             // catName
             // 
+            this.catName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.catName.DataPropertyName = "category";
             this.catName.HeaderText = "Category";
             this.catName.MinimumWidth = 8;
             this.catName.Name = "catName";
             this.catName.ReadOnly = true;
-            this.catName.Width = 150;
+            this.catName.Width = 109;
             // 
             // quantity
             // 
+            this.quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.quantity.DataPropertyName = "quantity";
             this.quantity.HeaderText = "Current Stock";
             this.quantity.MinimumWidth = 8;
             this.quantity.Name = "quantity";
             this.quantity.ReadOnly = true;
+            this.quantity.Width = 132;
             // 
             // price
             // 
+            this.price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.price.DataPropertyName = "price";
             this.price.HeaderText = "Price";
             this.price.MinimumWidth = 8;
             this.price.Name = "price";
             this.price.ReadOnly = true;
-            this.price.Width = 150;
+            this.price.Width = 80;
             // 
             // barcode
             // 
+            this.barcode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.barcode.HeaderText = "Barcode";
             this.barcode.MinimumWidth = 8;
             this.barcode.Name = "barcode";
             this.barcode.ReadOnly = true;
             this.barcode.Text = "Download";
             this.barcode.UseColumnTextForLinkValue = true;
-            this.barcode.Width = 150;
+            this.barcode.Width = 75;
             // 
             // update
             // 
+            this.update.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.update.HeaderText = "Update";
             this.update.MinimumWidth = 8;
             this.update.Name = "update";
@@ -163,10 +185,11 @@
             this.update.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.update.Text = "Update";
             this.update.UseColumnTextForLinkValue = true;
-            this.update.Width = 150;
+            this.update.Width = 98;
             // 
             // del
             // 
+            this.del.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.del.HeaderText = "Delete";
             this.del.MinimumWidth = 8;
             this.del.Name = "del";
@@ -175,7 +198,7 @@
             this.del.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.del.Text = "Delete";
             this.del.UseColumnTextForLinkValue = true;
-            this.del.Width = 150;
+            this.del.Width = 92;
             // 
             // Home
             // 

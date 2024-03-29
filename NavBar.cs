@@ -24,6 +24,7 @@ namespace inventory
             if (parentForm != null)
             {
                 Redirect("Home", parentForm, false);
+                parentForm.Close();
             }
             else
             {
@@ -59,6 +60,8 @@ namespace inventory
 
         private void AddNewCategoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form parentForm = this.FindForm();
+            parentForm.Close();
             Form newCategory = new AddCategory();
             newCategory.StartPosition = FormStartPosition.Manual;
             newCategory.Location = this.Location;
@@ -75,8 +78,9 @@ namespace inventory
             Form parentForm = this.FindForm(); // Get the parent form of the user control
             if (parentForm != null)
             {
-                Redirect("Login", parentForm, false);
                 MessageBox.Show("Log Out Successful", "Logout", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                parentForm.Close();
+                Redirect("Login", parentForm, false);
             }
             else
             {
@@ -86,12 +90,14 @@ namespace inventory
 
         private void CheckoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form parentForm = this.FindForm();
             Form checkout = new Checkout();
             checkout.StartPosition = FormStartPosition.CenterScreen;
             checkout.Location = this.Location;
             checkout.FormClosing += (senderO, ev) =>
             {
                 new Home().Show();
+                parentForm.Close();
             };
             checkout.Show();
         }
@@ -102,6 +108,7 @@ namespace inventory
             if (parentForm != null)
             {
                 Redirect("AddStock", parentForm, true);
+                parentForm.Close();
             }
             else
             {

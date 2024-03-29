@@ -42,11 +42,17 @@ namespace inventory
                             cmd.ExecuteNonQuery();
                             con.Close();
                             MessageBox.Show("Item has been Updated", "Update Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Program.Redirect("Home", this, false);
+                            this.Close();
                         }
-                        catch (Exception ex)
+                        catch (SqlException sqlEx)
                         {
-                            MessageBox.Show("Error: " + ex.Message);
+                            MessageBox.Show("This item does not exist in stock. : " + sqlEx.Message, "Inventory");
+                            label1.Text = "Upload the barcode here";
+
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message, ex.GetType().ToString());
                         }
                     }
                 }
