@@ -90,7 +90,7 @@ namespace inventory
                         MessageBox.Show("Error generating the barcode before download");
                     }
 
-                    DownloadBarcode(id);
+                    DownloadBarcode(id, itemName);
                     GetInventory();
                 }
                 else { }
@@ -132,7 +132,7 @@ namespace inventory
             GetInventory();
         }
 
-        private void DownloadBarcode(int id)
+        private void DownloadBarcode(int id, string itemName)
         {
             try
             {
@@ -153,6 +153,7 @@ namespace inventory
                         SaveFileDialog saveFileDialog = new SaveFileDialog();
                         saveFileDialog.Filter = "PNG Image|*.png";
                         saveFileDialog.Title = "Save Barcode Image";
+                        saveFileDialog.FileName = itemName;
                         saveFileDialog.ShowDialog();
 
                         // If user chose a location, save the file

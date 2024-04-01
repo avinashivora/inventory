@@ -60,6 +60,10 @@ namespace inventory
                 try
                 {
                     float i_price = float.Parse(price.Text.Trim());
+                    if (i_price < 0)
+                    {
+                        alert += "Price needs to be positive";
+                    }
                 }
                 catch
                 {
