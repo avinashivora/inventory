@@ -34,15 +34,15 @@ namespace inventory
 
         private void AddNewItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.FindForm().Close();
             Form newCategory = new AddItemWindow();
             newCategory.StartPosition = FormStartPosition.Manual;
             newCategory.Location = this.Location;
             newCategory.FormClosing += (senderO, ev) =>
             {
-                new Home().Show();
+                Redirect("Home", newCategory, false);
             };
             newCategory.Show();
-            this.Hide();
         }
 
         private void ViewItemCategoryListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -91,7 +91,7 @@ namespace inventory
         private void CheckoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form parentForm = this.FindForm();
-            Form checkout = new Checkout();
+            Form checkout = new GenerateBill();
             checkout.StartPosition = FormStartPosition.CenterScreen;
             checkout.Location = this.Location;
             checkout.FormClosing += (senderO, ev) =>
